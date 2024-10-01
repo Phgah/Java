@@ -1,0 +1,79 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package bai4;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Bai4 extends JFrame {
+    private JTextField soNguyenField;
+    private JLabel ketQuaLabel;
+    private JButton kiemTraButton;
+
+    public Bai4() {
+        // Thiết lập giao diện
+        setTitle("Kiểm tra số nguyên tố");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Khởi tạo các thành phần
+        JLabel nhapSoLabel = new JLabel("Nhập số nguyên n:");
+        nhapSoLabel.setBounds(20, 20, 150, 25);
+        add(nhapSoLabel);
+
+        soNguyenField = new JTextField();
+        soNguyenField.setBounds(150, 20, 100, 25);
+        add(soNguyenField);
+
+        kiemTraButton = new JButton("Kiểm tra SNT");
+        kiemTraButton.setBounds(80, 60, 120, 30);
+        add(kiemTraButton);
+
+        ketQuaLabel = new JLabel("");
+        ketQuaLabel.setBounds(20, 100, 250, 25);
+        add(ketQuaLabel);
+
+        // Xử lý sự kiện cho nút Kiểm tra SNT
+        kiemTraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int n = Integer.parseInt(soNguyenField.getText());
+
+                    if (isPrime(n)) {
+                        ketQuaLabel.setText(n + " là số nguyên tố.");
+                    } else {
+                        ketQuaLabel.setText(n + " không phải là số nguyên tố.");
+                    }
+                } catch (NumberFormatException ex) {
+                    ketQuaLabel.setText("Vui lòng nhập một số nguyên hợp lệ.");
+                }
+            }
+        });
+    }
+
+    // Hàm kiểm tra số nguyên tố
+    private boolean isPrime(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // Tạo giao diện và hiển thị
+        Bai4 frame = new Bai4();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+}
+
