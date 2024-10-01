@@ -1,0 +1,117 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package thuchanhbai3;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Thuchanhbai3 extends JFrame {
+    private JTextField canhAField;
+    private JTextField canhBField;
+    private JTextField chuViField;
+    private JTextField dienTichField;
+    private JButton thucHienButton;
+    private JButton tiepTucButton;
+    private JButton thoatButton;
+
+    public Thuchanhbai3() {
+        setTitle("Tính chu vi và diện tích HCN");
+        setSize(400, 300); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        setLayout(null);
+        
+        JLabel canhALabel = new JLabel("Canh A:");
+        canhALabel.setBounds(20, 20, 100, 25); 
+        add(canhALabel);
+
+        canhAField = new JTextField();
+        canhAField.setBounds(120, 20, 150, 25);
+        add(canhAField);
+
+        JLabel canhBLabel = new JLabel("Canh B:");
+        canhBLabel.setBounds(20, 60, 100, 25);
+        add(canhBLabel);
+
+        canhBField = new JTextField();
+        canhBField.setBounds(120, 60, 150, 25);
+        add(canhBField);
+
+        JLabel chuViLabel = new JLabel("Chu vi:");
+        chuViLabel.setBounds(20, 100, 100, 25);
+        add(chuViLabel);
+
+        chuViField = new JTextField();
+        chuViField.setBounds(120, 100, 150, 25);
+        chuViField.setEditable(false); 
+        add(chuViField);
+
+        JLabel dienTichLabel = new JLabel("Dien tich:");
+        dienTichLabel.setBounds(20, 140, 100, 25);
+        add(dienTichLabel);
+
+        dienTichField = new JTextField();
+        dienTichField.setBounds(120, 140, 150, 25);
+        dienTichField.setEditable(false); 
+        add(dienTichField);
+
+        thucHienButton = new JButton("Thuc hien");
+        thucHienButton.setBounds(50, 180, 100, 30);
+        add(thucHienButton);
+
+        tiepTucButton = new JButton("Tiep Tuc");
+        tiepTucButton.setBounds(160, 180, 100, 30);
+        add(tiepTucButton);
+
+        thoatButton = new JButton("Thoat");
+        thoatButton.setBounds(270, 180, 100, 30);
+        add(thoatButton);
+
+        thucHienButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (canhAField.getText().isEmpty() || canhBField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Vui lòng nhập cả hai cạnh A và B.");
+                        return;
+                    }
+                    double canhA = Double.parseDouble(canhAField.getText());
+                    double canhB = Double.parseDouble(canhBField.getText());
+
+                    double chuVi = 2 * (canhA + canhB);
+                    double dienTich = canhA * canhB;
+
+                    chuViField.setText(String.valueOf(chuVi));
+                    dienTichField.setText(String.valueOf(dienTich));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số hợp lệ.");
+                }
+            }
+        });
+
+        tiepTucButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canhAField.setText("");
+                canhBField.setText("");
+                chuViField.setText("");
+                dienTichField.setText("");
+            }
+        });
+
+        thoatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        Thuchanhbai3 frame = new Thuchanhbai3();
+        frame.setVisible(true); 
+        frame.setLocationRelativeTo(null);
+    }
+}
