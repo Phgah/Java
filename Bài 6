@@ -1,0 +1,146 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package bai6;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Bai6 extends JFrame implements ActionListener {
+
+    private JTextField sizeField, elementField, inputArrayField, sumField, sortedArrayField;
+    private JButton inputButton, executeButton, clearButton, exitButton;
+    private ArrayList<Integer> arrayList = new ArrayList<>();
+
+    public Bai6() {
+        setTitle("Nhập Mảng");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        // Nhập số lượng phần tử
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(new JLabel("Nhập số phần tử mảng:"), gbc);
+        sizeField = new JTextField(10);
+        gbc.gridx = 1;
+        add(sizeField, gbc);
+        
+        // Nhập phần tử
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(new JLabel("Nhập phần tử:"), gbc);
+        elementField = new JTextField(10);
+        gbc.gridx = 1;
+        add(elementField, gbc);
+        
+        // Nút nhập
+        inputButton = new JButton("Nhập");
+        gbc.gridx = 2;
+        add(inputButton, gbc);
+        
+        // Mảng đã nhập
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(new JLabel("Mảng đã nhập:"), gbc);
+        inputArrayField = new JTextField(20);
+        inputArrayField.setEditable(false);
+        gbc.gridx = 1;
+        gbc.gridwidth = 2;
+        add(inputArrayField, gbc);
+
+        // Tính tổng
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(new JLabel("Tính tổng:"), gbc);
+        sumField = new JTextField(20);
+        sumField.setEditable(false);
+        gbc.gridx = 1;
+        add(sumField, gbc);
+
+        // Sắp xếp
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(new JLabel("Sắp xếp:"), gbc);
+        sortedArrayField = new JTextField(20);
+        sortedArrayField.setEditable(false);
+        gbc.gridx = 1;
+        add(sortedArrayField, gbc);
+
+        // Nút thực hiện
+        executeButton = new JButton("Thực hiện");
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 1;
+        add(executeButton, gbc);
+
+        // Nút xóa
+        clearButton = new JButton("Xóa");
+        gbc.gridx = 1;
+        add(clearButton, gbc);
+
+        // Nút thoát
+        exitButton = new JButton("Thoát");
+        gbc.gridx = 2;
+        add(exitButton, gbc);
+
+        // Thêm sự kiện cho các nút
+        inputButton.addActionListener(this);
+        executeButton.addActionListener(this);
+        clearButton.addActionListener(this);
+        exitButton.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == inputButton) {
+            try {
+                int size = Integer.parseInt(sizeField.getText());
+                if (arrayList.size() < size) {
+                    int element = Integer.parseInt(elementField.getText());
+                    arrayList.add(element);
+                    inputArrayField.setText(arrayList.toString());
+                    elementField.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Đã nhập đủ số phần tử!");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ.");
+            }
+        } else if (e.getSource() == executeButton) {
+            if (!arrayList.isEmpty()) {
+                int sum = arrayList.stream().mapToInt(Integer::intValue).sum();
+                sumField.setText(String.valueOf(sum));
+
+                ArrayList<Integer> sortedList = new ArrayList<>(arrayList);
+                Collections.sort(sortedList);
+                sortedArrayField.setText(sortedList.toString());
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập mảng trước.");
+            }
+        } else if (e.getSource() == clearButton) {
+            sizeField.setText("");
+            elementField.setText("");
+            inputArrayField.setText("");
+            sumField.setText("");
+            sortedArrayField.setText("");
+            arrayList.clear();
+        } else if (e.getSource() == exitButton) {
+            System.exit(0);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Bai6 app = new Bai6();
+            app.setVisible(true);
+        });
+    }
+}
