@@ -1,0 +1,186 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package bai5;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Bai5 extends JFrame {
+    private JTextField thucSo1Field, thucSo2Field;
+    private JTextField aoSo1Field, aoSo2Field;
+    private JTextField ketQuaThucField, ketQuaAoField;
+    private JRadioButton congRadioButton, truRadioButton, nhanRadioButton, chiaRadioButton;
+    private JButton thucHienButton, xoaButton, thoatButton;
+
+    public Bai5() {
+        // Thiết lập giao diện
+        setTitle("Máy tính số phức");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Label Phần thực
+        JLabel phanThucLabel = new JLabel("Phần thực");
+        phanThucLabel.setBounds(50, 10, 100, 25);
+        add(phanThucLabel);
+
+        // Label Phần ảo
+        JLabel phanAoLabel = new JLabel("Phần ảo");
+        phanAoLabel.setBounds(200, 10, 100, 25);
+        add(phanAoLabel);
+
+        // Nhập Số phức 1
+        JLabel soPhuc1Label = new JLabel("Số phức 1:");
+        soPhuc1Label.setBounds(20, 40, 100, 25);
+        add(soPhuc1Label);
+
+        thucSo1Field = new JTextField();
+        thucSo1Field.setBounds(100, 40, 50, 25);
+        add(thucSo1Field);
+
+        aoSo1Field = new JTextField();
+        aoSo1Field.setBounds(200, 40, 50, 25);
+        add(aoSo1Field);
+
+        // Nhập Số phức 2
+        JLabel soPhuc2Label = new JLabel("Số phức 2:");
+        soPhuc2Label.setBounds(20, 80, 100, 25);
+        add(soPhuc2Label);
+
+        thucSo2Field = new JTextField();
+        thucSo2Field.setBounds(100, 80, 50, 25);
+        add(thucSo2Field);
+
+        aoSo2Field = new JTextField();
+        aoSo2Field.setBounds(200, 80, 50, 25);
+        add(aoSo2Field);
+
+        // Kết quả
+        JLabel ketQuaLabel = new JLabel("Kết quả:");
+        ketQuaLabel.setBounds(20, 120, 100, 25);
+        add(ketQuaLabel);
+
+        ketQuaThucField = new JTextField();
+        ketQuaThucField.setBounds(100, 120, 50, 25);
+        ketQuaThucField.setEditable(false);
+        add(ketQuaThucField);
+
+        ketQuaAoField = new JTextField();
+        ketQuaAoField.setBounds(200, 120, 50, 25);
+        ketQuaAoField.setEditable(false);
+        add(ketQuaAoField);
+
+        // Tạo font lớn hơn cho các RadioButton
+        Font radioFont = new Font("Arial", Font.PLAIN, 12);
+
+        // Các RadioButton lựa chọn phép tính
+        congRadioButton = new JRadioButton("Cộng");
+        congRadioButton.setBounds(50, 160, 80, 25);
+        congRadioButton.setFont(radioFont); // Tăng kích thước
+        add(congRadioButton);
+
+        truRadioButton = new JRadioButton("Trừ");
+        truRadioButton.setBounds(140, 160, 80, 25);
+        truRadioButton.setFont(radioFont); // Tăng kích thước
+        add(truRadioButton);
+
+        nhanRadioButton = new JRadioButton("Nhân");
+        nhanRadioButton.setBounds(230, 160, 80, 25);
+        nhanRadioButton.setFont(radioFont); // Tăng kích thước
+        add(nhanRadioButton);
+
+        chiaRadioButton = new JRadioButton("Chia");
+        chiaRadioButton.setBounds(320, 160, 80, 25);
+        chiaRadioButton.setFont(radioFont); // Tăng kích thước
+        add(chiaRadioButton);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(congRadioButton);
+        group.add(truRadioButton);
+        group.add(nhanRadioButton);
+        group.add(chiaRadioButton);
+
+        // Nút Thực hiện
+        thucHienButton = new JButton("Thực hiện");
+        thucHienButton.setBounds(50, 200, 100, 30);
+        add(thucHienButton);
+
+        // Nút Xóa
+        xoaButton = new JButton("Xóa");
+        xoaButton.setBounds(160, 200, 100, 30);
+        add(xoaButton);
+
+        // Nút Thoát
+        thoatButton = new JButton("Thoát");
+        thoatButton.setBounds(270, 200, 100, 30);
+        add(thoatButton);
+
+        // Xử lý sự kiện cho nút Thực hiện
+        thucHienButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double thucSo1 = Double.parseDouble(thucSo1Field.getText());
+                    double aoSo1 = Double.parseDouble(aoSo1Field.getText());
+                    double thucSo2 = Double.parseDouble(thucSo2Field.getText());
+                    double aoSo2 = Double.parseDouble(aoSo2Field.getText());
+
+                    double ketQuaThuc = 0, ketQuaAo = 0;
+
+                    if (congRadioButton.isSelected()) {
+                        ketQuaThuc = thucSo1 + thucSo2;
+                        ketQuaAo = aoSo1 + aoSo2;
+                    } else if (truRadioButton.isSelected()) {
+                        ketQuaThuc = thucSo1 - thucSo2;
+                        ketQuaAo = aoSo1 - aoSo2;
+                    } else if (nhanRadioButton.isSelected()) {
+                        ketQuaThuc = thucSo1 * thucSo2 - aoSo1 * aoSo2;
+                        ketQuaAo = thucSo1 * aoSo2 + aoSo1 * thucSo2;
+                    } else if (chiaRadioButton.isSelected()) {
+                        double mauSo = thucSo2 * thucSo2 + aoSo2 * aoSo2;
+                        ketQuaThuc = (thucSo1 * thucSo2 + aoSo1 * aoSo2) / mauSo;
+                        ketQuaAo = (aoSo1 * thucSo2 - thucSo1 * aoSo2) / mauSo;
+                    }
+
+                    ketQuaThucField.setText(String.valueOf(ketQuaThuc));
+                    ketQuaAoField.setText(String.valueOf(ketQuaAo));
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng số.");
+                }
+            }
+        });
+
+        // Xử lý sự kiện cho nút Xóa
+        xoaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                thucSo1Field.setText("");
+                aoSo1Field.setText("");
+                thucSo2Field.setText("");
+                aoSo2Field.setText("");
+                ketQuaThucField.setText("");
+                ketQuaAoField.setText("");
+                group.clearSelection();
+            }
+        });
+
+        // Xử lý sự kiện cho nút Thoát
+        thoatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        Bai5 frame = new Bai5();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+}
