@@ -1,0 +1,92 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.baitapcuoituan;
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.*;
+
+public class Baitapcuoituan extends JFrame {
+    private JTextField txtMaLop, txtTenLop;
+    private JButton btnThemMoi;
+
+    public Baitapcuoituan() {
+        setTitle("Thêm mới thông tin lớp");
+        setSize(300, 200);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+
+        JLabel lblMaLop = new JLabel("Mã lớp:");
+        lblMaLop.setBounds(10, 20, 80, 25);
+        add(lblMaLop);
+
+        txtMaLop = new JTextField();
+        txtMaLop.setBounds(100, 20, 165, 25);
+        add(txtMaLop);
+
+        JLabel lblTenLop = new JLabel("Tên lớp:");
+        lblTenLop.setBounds(10, 60, 80, 25);
+        add(lblTenLop);
+
+        txtTenLop = new JTextField();
+        txtTenLop.setBounds(100, 60, 165, 25);
+        add(txtTenLop);
+
+        btnThemMoi = new JButton("Thêm mới");
+        btnThemMoi.setBounds(100, 100, 165, 25);
+        add(btnThemMoi);
+
+        // Thêm sự kiện cho button Thêm mới
+        btnThemMoi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                themMoiLop();
+            }
+        });
+    }
+
+    private void themMoiLop() {
+        String malop = txtMaLop.getText();
+        String tenlop = txtTenLop.getText();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanly_lop?useSSL=false", "root", "phuonganh2001@");
+
+            String sql = "INSERT INTO tbl_lop (malop, tenlop) VALUES (?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, malop);
+            pstmt.setString(2, tenlop);
+
+            pstmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(this, "Thêm lớp thành công!");
+
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi: Không tìm thấy driver MySQL.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi: Không thể kết nối đến cơ sở dữ liệu.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new Baitapcuoituan().setVisible(true);
+        });
+    }
+}
