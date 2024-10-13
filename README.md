@@ -19,3 +19,9 @@ Bài 5
 Bài 6
 
 ![bai6](https://github.com/user-attachments/assets/aa705ff4-946e-4e4a-9aa3-a1e3eafbe80b)
+
+
+bai tap cuoi tuan 03
+<img width="279" alt="Ảnh màn hình 2024-10-13 lúc 13 54 46" src="https://github.com/user-attachments/assets/2a49f37e-45d3-4ce0-81c1-d786e1bbeddb">
+<img width="300" alt="Ảnh màn hình 2024-10-13 lúc 13 54 56" src="https://github.com/user-attachments/assets/668dab53-83fc-4f6e-a3d2-830ad568af97">
+<img width="447" alt="Ảnh màn hình 2024-10-13 lúc 13 55 38" src="https://github.com/user-attachments/assets/df7ae288-d907-4b81-97fd-02d52ad18815">
